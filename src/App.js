@@ -2,7 +2,7 @@ import "../src/dist/styles.css";
 import { useState } from "react";
 import About from "./Pages/About";
 import Home from "./Pages/Home";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 import Models from "./Pages/Models";
 import Team from "./Pages/Team";
 import Contact from "./Pages/Contact";
@@ -15,6 +15,8 @@ import { Conditions } from "./Pages/Conditions";
 import NewCar from "./Pages/NewCar";
 import DarkModeButton from "./components/DarkModeButton";
 
+import Logo from "./images/logo/logo.png";
+
 function App() {
     
   const [darkMode, setDarkMode] = useState(false);
@@ -26,6 +28,11 @@ function App() {
     return (
     <>
       <div className="cont">
+      <div className="navbar__img">
+            <Link to="/" onClick={() => window.scrollTo(0, 0)}>
+              <img src={Logo} alt="logo-img" />
+            </Link>
+          </div>
         <DarkModeButton darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
         <Routes>
           <Route index path="/" element={<Home />} />
