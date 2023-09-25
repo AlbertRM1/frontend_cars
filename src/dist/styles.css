@@ -96,7 +96,7 @@ body {
 
 .navbar {
   max-width: 133rem;
-  width: 100%;
+  width: 80%;
   height: auto;
   display: flex;
   justify-content: space-between;

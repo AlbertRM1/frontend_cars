@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Footer from "../components/Footer";
+import Footer from '../components/Footer';
 
 export const Register = () => {
   const [username, setUsername] = useState('');
@@ -16,7 +16,7 @@ export const Register = () => {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-  };  
+  };
 
   const handleRegisterAndLogin = async (e) => {
     e.preventDefault();
@@ -24,31 +24,51 @@ export const Register = () => {
     const data = {
       username: username,
       email: email,
-      password: password
+      password: password,
     };
 
     try {
-      const registerResponse = await fetch('http://localhost:8080/api/users/createUser', { // Error located 
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      });
-
-      if (registerResponse.status === 200) {
-        // Usuario creado con éxito, ahora inicia sesión automáticamente
-        const loginResponse = await fetch('http://localhost:8080/api/users/allUsers ', {
+      // Paso 1: Registrar al usuario
+      const registerResponse = await fetch(
+        'http://localhost:8080/api/users/createUser',
+        {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify(data)
-        });
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (registerResponse.status === 201) {
+        // Usuario creado con éxito
+
+        // Paso 2: Iniciar sesión para obtener un token
+        const loginData = {
+          email: email,
+          password: password,
+        };
+
+        const loginResponse = await fetch(
+          'http://localhost:8080/api/users/allUsers',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(loginData),
+          }
+        );
 
         if (loginResponse.status === 200) {
-          // Inicio de sesión exitoso, redirigir al usuario a la página /models
-          window.location.href = '/models';
+          // Inicio de sesión exitoso, obtén el token
+          const { token } = await loginResponse.json();
+
+          // Almacena el token en el almacenamiento local (localStorage) o en las cookies
+          localStorage.setItem('authToken', token);
+
+          // Redirige al usuario a la página /models o a donde desees
+            window.location.href = '/api/cars/allCars';
         } else if (loginResponse.status === 401) {
           alert('Login incorrecto');
         } else {
@@ -59,67 +79,87 @@ export const Register = () => {
         console.error('Error en la solicitud al registrar:', registerResponse.status);
       }
     } catch (error) {
-      console.error('Error en la solicitud:', error); 
+      console.error('Error en la solicitud:', error);
     }
   };
-  
+
   return (
     <>
       <section className="contact-page">
         <div className="container">
           <div className="contact-div">
             <div className="contact-div__text">
-            <h2>Create your free account on our website</h2>
+              <h2>Create your free account on our website</h2>
               <p>
-              With your account you can manage your activity 
-              whenever and wherever you want. This way you can 
-              control your appraisals, purchases and sales at 
-              any time without problems.
+                With your account you can manage your activity
+                whenever and wherever you want. This way you can
+                control your appraisals, purchases and sales at
+                any time without problems.
               </p>
               <p>
-              Save, manage and receive your latest searches 
-              in your email and on your smartphone.
+                Save, manage and receive your latest searches
+                in your email and on your smartphone.
               </p>
               <p>
-              It's an easy way to manage your appraisals and offers.
+                It's an easy way to manage your appraisals and offers.
               </p>
-              <p className="copyright">By registering you accept our <a href="/conditions">terms and conditions</a> as well as our <a href="/privacy">privacy policy</a>.</p>
+              <p className="copyright">
+                By registering you accept our{' '}
+                <a href="/conditions">terms and conditions</a> as well as our{' '}
+                <a href="/privacy">privacy policy</a>.
+              </p>
             </div>
             <div className="contact-div__form">
               <form onSubmit={handleRegisterAndLogin}>
-                <h2 className='title'>Register</h2>
-                <label>Username:</label>
-                <input
-                  name="username"
-                  type="text"
-                  id="txtUsername"
-                  placeholder="Username"
-                  value={username}
-                  onChange={handleUsernameChange}
-                />
+                <h2 className="title">Register</h2>
+                <br />
+                <label>Username:
+                  <br />
+                  <input
+                    name="username"
+                    type="text"
+                    id="txtUsername"
+                    autoComplete="username"
+                    placeholder="Username"
+                    value={username}
+                    onChange={handleUsernameChange}
+                  />
+                </label>
 
-                <label>Email:</label>
-                <input
-                  name="email"
-                  type="text"
-                  id="txtEmail"
-                  placeholder="Email"
-                  value={email}
-                  onChange={handleEmailChange}
-                />
+                <label>Email:
+                  <br />
+                  <input
+                    name="email"
+                    type="text"
+                    id="txtEmail"
+                    autoComplete="off"
+                    placeholder="Email"
+                    value={email}
+                    onChange={handleEmailChange}
+                  />
+                </label>
 
-                <label>Password:</label>
-                <input
-                  name="pass"
-                  type="password"
-                  id="txtPass"
-                  placeholder="Password"
-                  value={password}
-                  onChange={handlePasswordChange}
-                />
-                <p className='preg'>Already have an account?</p>
-                <a href="./login" className='preg'>Sign In</a><br />
-                <button type="submit" className='ButtonSub'>Register</button>
+                <label>Password:
+                  <br />
+                  <input
+                    name="pass"
+                    type="password"
+                    id="txtPass"
+                    autoComplete="current-password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                  />
+                </label>
+
+                <p className="preg">Already have an account?</p>
+                <a href="/api/users/allUsers" className="preg">
+                  Sign In
+                </a>
+                <br />
+                <button type="submit" className="ButtonSub">
+                  Register
+                </button>
               </form>
             </div>
           </div>

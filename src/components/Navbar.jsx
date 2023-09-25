@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import Logo from "../images/logo/logo.png";
 import { useState } from "react";
 
 function Navbar( setLoggedIn ) {
@@ -59,11 +58,7 @@ function Navbar( setLoggedIn ) {
 
         {/* desktop */}
         <div className="navbar">
-          <div className="navbar__img">
-            <Link to="/" onClick={() => window.scrollTo(0, 0)}>
-              <img src={Logo} alt="logo-img" />
-            </Link>
-          </div>
+          <div className="navbar__img" />
           <ul className="navbar__links">
             <li>
               {" "}

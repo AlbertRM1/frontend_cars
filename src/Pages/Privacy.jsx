@@ -9,7 +9,7 @@ export function Privacy() {
           <div className="cookies">
             <div>
                 <h1>Privacy Policy</h1>
-                <p>At [company name], we are committed to protecting the privacy of our users. This privacy policy explains how we collect, use, disclose and protect the personal information we obtain through our website and services.</p>
+                <p>At Mixiotes, we are committed to protecting the privacy of our users. This privacy policy explains how we collect, use, disclose and protect the personal information we obtain through our website and services.</p>
                 <br />
                 <h2>Information gathering</h2>
 
