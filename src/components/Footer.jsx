@@ -53,7 +53,7 @@ function Footer() {
                 <p>Subscribe your Email address for latest news & updates.</p>
               </li>
               <li>
-                <input type="email" placeholder="Enter Email Address"></input>
+                <input type="email" id="emailfooter" className="email" placeholder="Enter Email Address"></input>
               </li>
               <li>
                 <button className="submit-email">Submit</button>

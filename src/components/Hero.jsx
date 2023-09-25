@@ -48,11 +48,11 @@ function Hero() {
                 <Link
                   onClick={bookBtn}
                   className="hero-content__text__btns__book-ride"
-                  to="/login"
+                  to="/api/users/allUsers"
                 >
                   Sign In &nbsp; <i className="fa-solid fa-circle-check"></i>
                 </Link>
-                <Link className="hero-content__text__btns__learn-more" to="localhost:8080/api/users/createUser">
+                <Link className="hero-content__text__btns__learn-more" to="/api/users/createUser">
                   Sign Up &nbsp; <i className="fa-solid fa-angle-right"></i>
                 </Link>
               </div>

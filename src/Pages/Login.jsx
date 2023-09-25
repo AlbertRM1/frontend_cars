@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import Footer from "../components/Footer";
+import React, { useState, useEffect } from 'react';
+import Footer from '../components/Footer';
 
 export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
   };
 
   const handlePasswordChange = (e) => {
@@ -18,15 +18,15 @@ export const Login = () => {
     e.preventDefault();
 
     const data = {
-      email: email,
-      pass: password,
+      username: username,
+      password: password,
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/users/allUsers", {
-        method: "POST",
+      const response = await fetch('http://localhost:8080/api/users/allUsers', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       });
@@ -36,24 +36,24 @@ export const Login = () => {
         const token = responseData.token;
 
         // Almacenar el token en el almacenamiento local
-        localStorage.setItem("authToken", token);
+        localStorage.setItem('authToken', token);
         setLoggedIn(true);
 
         // Redirigir al usuario a la página /models después del inicio de sesión exitoso
-        window.location.href = "/models";
+        window.location.href = '/api/cars/allCars';
       } else if (response.status === 401) {
-        alert("Login incorrecto");
+        alert('Credenciales incorrectas');
       } else {
-        console.error("Error en la solicitud:", response.status);
+        console.error('Error en la solicitud:', response.status);
       }
     } catch (error) {
-      console.error("Error en la solicitud:", error);
+      console.error('Error en la solicitud:', error);
     }
   };
 
   useEffect(() => {
     // Verificar si hay un token de autenticación almacenado en el almacenamiento local
-    const authToken = localStorage.getItem("authToken");
+    const authToken = localStorage.getItem('authToken');
 
     if (authToken) {
       setLoggedIn(true);
@@ -67,47 +67,66 @@ export const Login = () => {
           <div className="contact-div">
             <div className="contact-div__text">
               <h2>Create your free account on our website</h2>
+              <h2>Create your free account on our website</h2>
               <p>
-                With your account you can manage your activity whenever and
-                wherever you want. This way you can control your appraisals,
-                purchases, and sales at any time without problems.
+                With your account you can manage your activity
+                whenever and wherever you want. This way you can
+                control your appraisals, purchases and sales at
+                any time without problems.
               </p>
               <p>
-                Save, manage, and receive your latest searches in your email
-                and on your smartphone.
+                Save, manage and receive your latest searches
+                in your email and on your smartphone.
               </p>
-              <p>It's an easy way to manage your appraisals and offers.</p>
+              <p>
+                It's an easy way to manage your appraisals and offers.
+              </p>
               <p className="copyright">
-                By registering you accept our{" "}
-                <a href="/conditions">terms and conditions</a> as well as our{" "}
+                By registering you accept our{' '}
+                <a href="/conditions">terms and conditions</a> as well as our{' '}
                 <a href="/privacy">privacy policy</a>.
               </p>
             </div>
             <div className="contact-div__form">
-              {loggedIn ? (window.location.href = "/models") : (
+              {loggedIn ? (
+                // Si el usuario está conectado, redirigir al usuario a /models
+                (window.location.href = '/api/cars/allCars')
+              ) : (
                 // Si el usuario no está conectado, mostrar el formulario de inicio de sesión
                 <form onSubmit={handleLogin}>
                   <h2 className="title">Login</h2>
-                  <label>Email:</label>
-                  <input
-                    name="email"
-                    type="text"
-                    id="txtEmail"
-                    placeholder="Email"
-                    value={email}
-                    onChange={handleEmailChange}
-                  />
-                  <label>Password:</label>
-                  <input
-                    name="pass"
-                    type="password"
-                    id="txtPass"
-                    placeholder="Password"
-                    value={password}
-                    onChange={handlePasswordChange}
-                  />
+                  <br />
+
+                  <label>Username:
+                    <br />
+                    <input
+                      name="username"
+                      type="text"
+                      id="txtUsername"
+                      className='usernamelogin'
+                      autoComplete='username'
+                      placeholder="Username"
+                      value={username}
+                      onChange={handleUsernameChange}
+                    />
+                  </label>
+
+                  <label>Password:
+                    <br />
+                    <input
+                      name="password"
+                      type="password"
+                      id="txtPassword"
+                      className='passwordlogin'
+                      autoComplete='current-password'
+                      placeholder="Password"
+                      value={password}
+                      onChange={handlePasswordChange}
+                    />
+                  </label>
+
                   <p className="preg">Haven't registered yet?</p>
-                  <a href="localhost:8080/api/users/createUser" className="preg">
+                  <a href="/api/users/createUser" className="preg">
                     Register
                   </a>
                   <br />

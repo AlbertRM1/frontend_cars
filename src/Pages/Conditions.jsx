@@ -9,7 +9,7 @@ export function Conditions() {
           <div className="cookies">
             <div>
             <h1>Terms and Conditions of Use of the Website</h1>
-                <p>This document is intended to establish the terms and conditions of use of the website [name of the website], hereinafter referred to as "the Site".</p>
+                <p>This document is intended to establish the terms and conditions of use of the website Mixiotes, hereinafter referred to as "the Site".</p>
                 <br />
 
                 <h2>Acceptance of the Terms and Conditions</h2>
@@ -27,15 +27,15 @@ export function Conditions() {
                 <br />
 
                 <h2>Intellectual Property</h2>
-                <p>All content on the Site, including but not limited to text, graphics, images, logos, videos, software and design, is protected by intellectual property rights and is the exclusive property of [company name]. Its reproduction, copy, distribution or use is prohibited without prior written authorization.</p>
+                <p>All content on the Site, including but not limited to text, graphics, images, logos, videos, software and design, is protected by intellectual property rights and is the exclusive property of Mixiotes. Its reproduction, copy, distribution or use is prohibited without prior written authorization.</p>
                 <br />
 
                 <h2>Links to Third Parties</h2>
-                <p>The Site may contain links to third-party websites that are not controlled by [company name]. These links are provided solely as a convenience to the user. We are not responsible for the content, privacy policies or practices of linked third-party websites. We recommend that you review the terms and conditions of each website you visit.</p>
+                <p>The Site may contain links to third-party websites that are not controlled by Mixiotes. These links are provided solely as a convenience to the user. We are not responsible for the content, privacy policies or practices of linked third-party websites. We recommend that you review the terms and conditions of each website you visit.</p>
                 <br />
 
                 <h2>Limitation of Liability</h2>
-                <p>Use of the Site is at your own risk. [Company Name] is not liable for any direct, indirect, special, consequential or incidental damages that may arise from the use or inability to use the Site.</p>
+                <p>Use of the Site is at your own risk. Mixiotes is not liable for any direct, indirect, special, consequential or incidental damages that may arise from the use or inability to use the Site.</p>
                 <br />
 
                 <h2>Modifications to the Terms and Conditions</h2>

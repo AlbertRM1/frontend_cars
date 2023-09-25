@@ -2,17 +2,22 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
-import CarImg1 from "../images/cars-big/audi-box.png";
+/* import CarImg1 from "../images/cars-big/audi-box.png"; */
 
 function Models() {
-  const [ofertas, setOfertas] = useState([]);
+  const [cars, setCars] = useState([]);
 
   useEffect(() => {
-    // Realizar una solicitud GET al endpoint /ofertas del backend
-    fetch("http://localhost:5000/ofertas")
-      .then((response) => response.json())
-      .then((data) => setOfertas(data))
-      .catch((error) => console.error("Error al obtener ofertas:", error));
+    // Realizar una solicitud GET al endpoint /api/cars/allCars del backend
+    fetch("http://localhost:8080/api/cars/allCars")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => setCars(data))
+      .catch((error) => console.error("Error al obtener cars:", error));
   }, []); // El [] vacío asegura que esta solicitud se realice solo una vez al cargar el componente
 
   return (
@@ -22,38 +27,37 @@ function Models() {
         <br />
         <div className="container">
           <div className="models-div">
-            {ofertas.map((oferta) => (
-              <div className="models-div__box" key={oferta.id}>
+            {cars.map((car, index) => (
+              <div className="models-div__box" key={index}>
                 <div className="models-div__box__img">
-                  <img src={CarImg1} alt="car_img" />
+                  {/* <img src={CarImg1} alt="car_img" /> */}
                 </div>
                 <div className="models-div__box__descr">
                   <div className="models-div__box__descr__name-price">
                     <div className="models-div__box__descr__name-price__name">
-                      <p>Audi A1</p>
+                      <p>{car.make} {car.model}</p>
                       <span>
-                        {Array.from({ length: oferta.estrellas }).map((_, index) => (
+                        {Array.from({ length: car.estrellas }).map((_, index) => (
                           <i key={index} className="fa-solid fa-star"></i>
                         ))}
                       </span>
                     </div>
                     <div className="models-div__box__descr__name-price__price">
-                      <h4>${oferta.precio}</h4>
-                      <p>per day</p>
+                      <h4>{car.price} €</h4>
                     </div>
                   </div>
                   <div className="models-div__box__descr__name-price__details">
                     <span>
-                      <i className="fa-solid fa-car-side"></i> &nbsp; {oferta.salida} Salida
+                      <i className="fa-solid fa-car-side"></i> &nbsp; {car.kms} km
                     </span>
                     <span style={{ textAlign: "right" }}>
-                      {oferta.llegada} Llegada &nbsp; <i className="fa-solid fa-car-side"></i>
+                      Year {car.year} &nbsp; <i className="fa-solid fa-calendar"></i>
                     </span>
                     <span>
-                      <i className="fa-solid fa-car-side"></i> &nbsp; {oferta.cupo} Personas
+                      <i className="fa-solid fa-gas-pump"></i> &nbsp; {car.fuel}
                     </span>
-                    <span style={{ textAlign: "right" }}>
-                      {oferta.combustible} &nbsp; <i className="fa-solid fa-car-side"></i>
+                    <span>
+                      <i className="fa-solid fa-gas-pump"></i> &nbsp; {car.shift}
                     </span>
                   </div>
                   <div className="models-div__box__descr__name-price__btn">
